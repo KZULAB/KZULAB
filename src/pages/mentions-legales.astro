@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import { company, host } from '../data/site';
+
+const updated = '3 octobre 2026';
+const { address: a } = company;
+---
+
+<BaseLayout
+  title="Mentions légales — KZULAB"
+  description="Mentions légales du site kzulab.com : éditeur, directeur de la publication, hébergeur et propriété intellectuelle."
+>
+  <div class="wrap pt-12 pb-16">
+    <PageTitle title="Mentions légales" note={`Mise à jour : ${updated}`} />
+    <div class="prose-plan">
+      <p>
+        Conformément à l'article 1-1 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique
+        (LCEN), dans sa rédaction issue de la loi n° 2024-449 du 21 mai 2024 (SREN), ainsi qu'à son article 19, voici les
+        informations relatives à l'éditeur et à l'hébergeur du site <a href={company.url}>kzulab.com</a>.
+      </p>
+
+      <h2>Éditeur du site</h2>
+      <dl>
+        <div><dt>Dénomination sociale</dt><dd>{company.name}</dd></div>
+        <div><dt>Forme juridique</dt><dd>{company.legalForm}</dd></div>
+        <div><dt>Capital social</dt><dd>{company.capital}</dd></div>
+        <div><dt>Siège social</dt><dd>{a.street}, {a.postalCode} {a.city}, {a.country}</dd></div>
+        <div><dt>Immatriculation</dt><dd>{company.rcs}</dd></div>
+        <div><dt>SIREN</dt><dd>{company.siren}</dd></div>
+        <div><dt>SIRET (siège)</dt><dd>{company.siret}</dd></div>
+        {company.vatNumber && <div><dt>N° de TVA intracommunautaire</dt><dd>{company.vatNumber}</dd></div>}
+        <div><dt>Représentant légal</dt><dd>{company.president}, Président</dd></div>
+        <div><dt>Courriel</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+        <div><dt>Téléphone</dt><dd><a href={company.phone.href}>{company.phone.international}</a></dd></div>
+      </dl>
+
+      <h2>Directeur de la publication</h2>
+      <p>{company.publicationDirector}.</p>
+
+      <h2>Hébergeur</h2>
+      <dl>
+        <div><dt>Nom</dt><dd>{host.name}</dd></div>
+        <div><dt>Adresse</dt><dd>{host.address}</dd></div>
+        <div><dt>Téléphone</dt><dd>{host.phone}</dd></div>
+        <div><dt>Site</dt><dd><a href={host.url} rel="noopener">{host.url.replace('https://', '')}</a></dd></div>
+      </dl>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des éléments de ce site (textes, logotypes, noms, visuels, mise en page) est la propriété exclusive de{' '}
+        {company.name}, sauf mention contraire. Le nom « Animacatch » et son icône appartiennent à {company.name}.
+      </p>
+      <p>
+        Toute reproduction, représentation, adaptation ou diffusion, totale ou partielle, de ces éléments, par quelque
+        procédé que ce soit, sans l'autorisation écrite préalable de {company.name}, est interdite et constitue une
+        contrefaçon sanctionnée par les articles L. 335-2 et suivants du Code de la propriété intellectuelle.
+      </p>
+      <p>
+        Les polices de caractères Archivo et Martian Mono sont utilisées sous licence SIL Open Font License 1.1.
+      </p>
+
+      <h2>Données personnelles et cookies</h2>
+      <p>
+        Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience ni aucun traceur soumis à votre
+        consentement. Seule votre préférence d'affichage (thème clair ou sombre) peut être enregistrée sur votre appareil
+        si vous la choisissez. Pour savoir quelles données sont
+        traitées et comment exercer vos droits, consultez la <a href="/confidentialite">politique de confidentialité</a>.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Pour toute question ou pour signaler un contenu, écrivez à{' '}
+        <a href={`mailto:${company.email}`}>{company.email}</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

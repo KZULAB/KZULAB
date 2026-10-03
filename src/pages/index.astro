@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectFigure from '../components/ProjectFigure.astro';
+import { projects, upcomingSlots } from '../data/projects';
+import { company, team } from '../data/site';
+import { useTranslations } from '../i18n/ui';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+const upcoming = Array.from({ length: upcomingSlots }, (_, i) => projects.length + i + 1);
+---
+
+<BaseLayout
+  title="KZULAB — Laboratoire d'idées, projets informatiques"
+  description="KZULAB est un laboratoire d'idées qui développe des projets informatiques, dont Animacatch, un jeu mobile bientôt disponible sur iOS et Android."
+  lang={lang}
+>
+  <div class="wrap pt-12 pb-16">
+    <p class="dim label draw mb-2.5" aria-hidden="true"><span class="text-center">{t('hero.dim')}</span></p>
+    <div>
+      <h1 class="draw m-0 text-[clamp(3.4rem,15.5vw,13.5rem)] leading-[0.86] font-extrabold tracking-[-0.02em] uppercase [font-stretch:125%]">
+        Kzu<span class="outline-text">lab</span>
+      </h1>
+    </div>
+    <div class="fade-in mt-7 grid items-end gap-6 lg:grid-cols-[1.3fr_1fr]">
+      <p class="m-0 max-w-[30ch] text-[clamp(1.25rem,2.6vw,1.6rem)] leading-[1.3] [font-stretch:90%]">{t('hero.lede')}</p>
+      <div>
+        <a class="btn-plan" href="#projets"><span>{t('hero.cta')}</span><span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </div>
+
+  <section id="projets" class="border-t-[1.5px] border-line pt-12 pb-16" aria-labelledby="projets-titre">
+    <div class="wrap">
+      <div class="mb-7 flex flex-wrap items-baseline justify-between gap-4">
+        <h2 id="projets-titre" class="display m-0 text-[clamp(2rem,6vw,3.6rem)]">{t('projects.title')}</h2>
+        <span class="label text-ink-soft">{t('projects.sheet')}</span>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        {projects.map((p, i) => <ProjectFigure lang={lang} figure={i + 1} project={p} />)}
+        {upcoming.map((n) => <ProjectFigure lang={lang} figure={n} />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="a-propos" class="border-t-[1.5px] border-line pt-12 pb-16" aria-labelledby="a-propos-titre">
+    <div class="wrap">
+      <div class="mb-7 flex flex-wrap items-baseline justify-between gap-4">
+        <h2 id="a-propos-titre" class="display m-0 text-[clamp(2rem,6vw,3.6rem)]">{t('about.title')}</h2>
+        <span class="label text-ink-soft">{t('about.sheet')}</span>
+      </div>
+      <div class="grid gap-8 lg:grid-cols-2">
+        <div class="max-w-xl">
+          <p class="mt-0 mb-4">KZULAB est un laboratoire d'idées : nous imaginons et développons des projets informatiques.</p>
+          <p class="m-0">La société a été fondée en 2026 par trois cofondateurs. Son premier projet, Animacatch, est un jeu mobile bientôt disponible sur iOS et Android.</p>
+        </div>
+        <table class="team w-full border-collapse border-[1.5px] border-line">
+          <caption class="label pb-2.5 text-left text-ink-soft">{t('team.caption')}</caption>
+          <thead>
+            <tr><th scope="col">{t('team.name')}</th><th scope="col">{t('team.role')}</th></tr>
+          </thead>
+          <tbody>
+            {team.map((m) => (
+              <tr><th scope="row">{m.name}</th><td>{m.role}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="border-t-[1.5px] border-line pt-12 pb-16" aria-labelledby="contact-titre">
+    <div class="wrap grid gap-4">
+      <div class="flex flex-wrap items-baseline justify-between gap-4">
+        <h2 id="contact-titre" class="display m-0 text-[clamp(2rem,6vw,3.6rem)]">{t('contact.title')}</h2>
+        <span class="label text-ink-soft">{t('contact.sub')}</span>
+      </div>
+      <a
+        href={`mailto:${company.email}`}
+        class="text-[clamp(1.4rem,6.4vw,4rem)] leading-none font-extrabold break-all decoration-2 underline-offset-8 [font-stretch:110%]"
+      >{company.email}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .team th,
+  .team td {
+    text-align: left;
+    padding: 0.8rem 0.9rem;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: baseline;
+  }
+  .team thead th {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .team tbody th {
+    font-weight: 700;
+    font-stretch: 110%;
+    font-size: 1.15rem;
+  }
+</style>

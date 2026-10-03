@@ -1,0 +1,93 @@
+---
+// Pied de page en forme de cartouche de plan. Ni adresse ni téléphone ici (voir CLAUDE.md).
+import { company } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const t = useTranslations(Astro.props.lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="cartouche" aria-label={t('footer.label')}>
+  <div class="cell big"><span class="label">{t('footer.name')}</span><p class="big-name">{company.name}</p></div>
+  <div class="cell"><span class="label">{t('footer.form')}</span><p>{company.legalFormShort} au capital de {company.capitalShort}</p></div>
+  <div class="cell"><span class="label">{t('footer.rcs')}</span><p set:html={company.rcs.replace(/(\d) (\d)/g, '$1&nbsp;$2')} /></div>
+  <div class="cell wide"><span class="label">{t('footer.contact')}</span><p><a href={`mailto:${company.email}`}>{company.email}</a></p></div>
+  <div class="cell year"><span class="label">{t('footer.year')}</span><p>© {year} {company.name}</p></div>
+  <div class="cell wide docs">
+    <span class="label">{t('footer.docs')}</span>
+    <p><a href="/mentions-legales">{t('legal.notice')}</a> · <a href="/confidentialite">{t('legal.privacy')}</a></p>
+  </div>
+  <div class="cell cookies"><span class="label">{t('footer.cookies')}</span><p>{t('footer.cookies.value')}</p></div>
+</footer>
+
+<style>
+  /* Filets du cartouche : un gap de 1px sur un fond de la couleur du trait. */
+  .cartouche {
+    border-top: 1.5px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line-soft);
+  }
+  .cell {
+    background: var(--bg);
+    padding: 0.65rem 0.9rem;
+    min-width: 0;
+  }
+  .cell .label {
+    display: block;
+    color: var(--text-soft);
+    font-size: 0.62rem;
+    margin-bottom: 0.2rem;
+  }
+  .cell p {
+    margin: 0;
+    font-weight: 700;
+    font-stretch: 105%;
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
+  }
+  .cell a {
+    display: inline-block;
+    padding: 0.2rem 0;
+    text-underline-offset: 3px;
+  }
+  .cell .big-name {
+    font-stretch: 125%;
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+  }
+  /* Mobile : contact, documents et cookies sur toute la largeur, l'année remonte à côté de l'immatriculation. */
+  .wide,
+  .cookies {
+    grid-column: 1 / -1;
+  }
+  .year {
+    order: 1;
+  }
+  .wide,
+  .cookies {
+    order: 2;
+  }
+  @media (min-width: 860px) {
+    .cartouche {
+      grid-template-columns: 2fr repeat(4, 1fr);
+    }
+    .big {
+      grid-row: span 2;
+    }
+    .wide,
+    .cookies,
+    .year {
+      grid-column: auto;
+      order: 0;
+    }
+    .docs {
+      grid-column: span 3;
+    }
+  }
+</style>

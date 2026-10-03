@@ -1,0 +1,18 @@
+# Dépôt PUBLIC : aucune information sensible ne doit être commitée.
+# Notes internes et documents de travail
+brief/
+CLAUDE.local.md
+*.pdf
+
+# Secrets
+.env*
+
+# Build et dépendances
+node_modules/
+dist/
+.astro/
+
+# Divers
+.DS_Store
+Thumbs.db
+.lighthouseci/

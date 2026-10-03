@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import { company } from '../data/site';
+
+const updated = '3 octobre 2026';
+const { address: a } = company;
+const mail = `mailto:${company.email}`;
+---
+
+<BaseLayout
+  title="Politique de confidentialité — KZULAB"
+  description="Politique de confidentialité du site kzulab.com : aucun cookie, aucun traceur soumis à consentement, données traitées, durées de conservation et droits RGPD."
+>
+  <div class="wrap pt-12 pb-16">
+    <PageTitle title="Confidentialité" note={`Mise à jour : ${updated}`} />
+    <div class="prose-plan">
+      <p>
+        Cette politique explique quelles données personnelles sont traitées lorsque vous consultez le site{' '}
+        <a href={company.url}>kzulab.com</a> ou que vous nous écrivez, et comment exercer vos droits au titre du
+        Règlement (UE) 2016/679 (RGPD) et de la loi n° 78-17 du 6 janvier 1978 (« Informatique et Libertés »).
+      </p>
+
+      <h2 id="cookies">Cookies et traceurs</h2>
+      <p>
+        Ce site ne dépose aucun cookie et n'utilise aucun traceur soumis à consentement : pas de mesure d'audience, pas
+        de publicité, pas de bouton de réseau social, pas de contenu chargé depuis un service tiers. Les polices de
+        caractères sont hébergées avec le site.
+      </p>
+      <p>
+        Seule exception : si vous utilisez le bouton de changement de thème (clair ou sombre), votre choix est enregistré
+        dans le stockage local de votre navigateur, sous la clé « kz-theme ». Ce stockage, que vous déclenchez vous-même,
+        sert uniquement à mémoriser la présentation que vous avez demandée. Il est strictement nécessaire au service que
+        vous avez sollicité et n'est donc pas soumis à consentement (article 82 de la loi Informatique et Libertés). Il
+        reste sur votre appareil, ne nous est jamais transmis et n'expire pas automatiquement : vous pouvez le supprimer à
+        tout moment en effaçant les données du site dans votre navigateur. C'est pourquoi aucun bandeau de consentement ne
+        vous est présenté.
+      </p>
+
+      <h2>Responsable du traitement</h2>
+      <p>
+        {company.name}, société par actions simplifiée au capital de {company.capital}, dont le siège est situé{' '}
+        {a.street}, {a.postalCode} {a.city}, immatriculée au registre du commerce et des sociétés de Pontoise sous le
+        numéro {company.siren}, représentée par son Président, {company.president}. Contact :{' '}
+        <a href={mail}>{company.email}</a>.
+      </p>
+      <p>
+        {company.name} n'a pas désigné de délégué à la protection des données, cette désignation n'étant pas obligatoire
+        pour elle.
+      </p>
+
+      <h2>Données traitées</h2>
+
+      <h3>1. Journaux techniques de l'hébergeur</h3>
+      <p>
+        Le site est hébergé par GitHub, Inc. (service GitHub Pages). Comme tout serveur web, celui-ci reçoit des données
+        techniques à chaque visite : adresse IP, date et heure de la requête, page demandée, type de navigateur. GitHub
+        indique enregistrer l'adresse IP des visiteurs à des fins de sécurité.
+      </p>
+      <ul>
+        <li><strong>Finalité :</strong> assurer la sécurité et le bon fonctionnement du site.</li>
+        <li>
+          <strong>Base légale :</strong> l'intérêt légitime de {company.name} à proposer un site disponible et sécurisé
+          (article 6, paragraphe 1, f, du RGPD).
+        </li>
+        <li>
+          <strong>Destinataire :</strong> GitHub, Inc. {company.name} n'a pas accès à ces journaux et ne les exploite pas.
+        </li>
+        <li>
+          <strong>Durée de conservation :</strong> fixée par GitHub selon sa{' '}
+          <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">déclaration de confidentialité</a>.
+        </li>
+      </ul>
+
+      <h3>2. Messages que vous nous envoyez</h3>
+      <p>
+        Le site ne comporte aucun formulaire. Si vous nous écrivez à <a href={mail}>{company.email}</a>, nous traitons
+        votre adresse électronique, votre nom s'il apparaît, le contenu de votre message et les données que vous choisissez
+        d'y joindre.
+      </p>
+      <ul>
+        <li><strong>Finalité :</strong> répondre à votre demande et assurer le suivi de nos échanges.</li>
+        <li>
+          <strong>Base légale :</strong> l'intérêt légitime de {company.name} à répondre aux messages qui lui sont adressés
+          ou, si votre demande porte sur un projet de contrat, l'exécution de mesures précontractuelles prises à votre
+          demande (article 6, paragraphe 1, b et f, du RGPD).
+        </li>
+        <li>
+          <strong>Destinataires :</strong> les dirigeants de {company.name} habilités à traiter les demandes. Les messages
+          envoyés à {company.email} sont reçus par notre prestataire de redirection des courriels, ImprovMX (ImprovMX Inc.,
+          Dover, Delaware, États-Unis), qui les transmet aux boîtes de messagerie des dirigeants.
+        </li>
+        <li>
+          <strong>Durée de conservation :</strong> le temps de traiter votre demande, puis trois ans au plus à compter de
+          notre dernier échange. Si un contrat est conclu, les échanges sont conservés pendant la durée de la relation
+          contractuelle, puis archivés pendant le délai de prescription applicable (en principe cinq ans, article L. 110-4
+          du Code de commerce) ou, pour les pièces comptables, dix ans (article L. 123-22 du Code de commerce).
+        </li>
+      </ul>
+      <p>
+        Vous n'êtes pas obligé de nous écrire. Si vous le faites, les données de votre message sont nécessaires pour vous
+        répondre. Aucune décision automatisée ni aucun profilage n'est mis en œuvre.
+      </p>
+
+      <h2>Transferts hors de l'Union européenne</h2>
+      <p>
+        GitHub, Inc. est établie aux États-Unis : les journaux techniques décrits plus haut y sont donc transférés. GitHub,
+        Inc. est certifiée au titre du cadre de protection des données UE–États-Unis (« Data Privacy Framework »), reconnu
+        comme offrant un niveau de protection adéquat pour les organisations certifiées par la décision d'exécution (UE)
+        2023/1795 de la Commission européenne du 10 juillet 2023.
+      </p>
+      <p>
+        ImprovMX Inc. est établie aux États-Unis. Selon les informations qu'elle publie, les courriels entrants sont reçus
+        et stockés temporairement en France, puis supprimés dès leur remise ; leur réexpédition vers les boîtes des
+        dirigeants peut toutefois transiter par des serveurs situés aux États-Unis. Les fournisseurs de ces boîtes de
+        messagerie peuvent également traiter vos messages hors de l'Union européenne.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Vous disposez d'un droit d'accès, de rectification, d'effacement et de limitation du traitement de vos données,
+        d'un droit d'opposition au traitement fondé sur notre intérêt légitime, d'un droit à la portabilité pour les
+        données traitées dans le cadre de mesures précontractuelles, ainsi que du droit de définir des directives relatives
+        au sort de vos données après votre décès.
+      </p>
+      <p>
+        Pour exercer ces droits, écrivez à <a href={mail}>{company.email}</a>. Nous vous répondrons dans un délai d'un mois,
+        qui peut être prolongé de deux mois compte tenu de la complexité ou du nombre de demandes, auquel cas nous vous en
+        informerons dans le premier mois ; nous pourrons vous demander de justifier de votre identité en cas de doute
+        raisonnable. Pour les journaux techniques, que nous ne détenons pas, vous pouvez aussi vous adresser directement à
+        GitHub.
+      </p>
+      <p>
+        Si vous estimez que vos droits ne sont pas respectés, vous pouvez à tout moment introduire une réclamation auprès de
+        la Commission nationale de l'informatique et des libertés (CNIL), 3 place de Fontenoy, TSA 80715, 75334 Paris
+        Cedex 07, ou sur <a href="https://www.cnil.fr/fr/plaintes" rel="noopener">cnil.fr/fr/plaintes</a>.
+      </p>
+
+      <h2>Modifications</h2>
+      <p>
+        Cette politique peut évoluer, par exemple si le site propose de nouveaux services. La date de mise à jour figure en
+        haut de cette page.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

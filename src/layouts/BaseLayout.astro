@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import archivoUrl from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import martianUrl from '@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2?url';
+import Header from '../components/Header.astro';
+import Cartouche from '../components/Cartouche.astro';
+import { company } from '../data/site';
+import { defaultLang, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Lang;
+  /** Page à ne pas indexer (ex. 404). */
+  noindex?: boolean;
+}
+
+const { title, description, lang = defaultLang, noindex = false } = Astro.props;
+const t = useTranslations(lang);
+// Avec build.format 'file', le chemin vaut « /index.html » ou « /page.html » : on publie des URL sans extension.
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: company.name,
+  legalName: company.name,
+  url: company.url,
+  email: company.email,
+  logo: new URL('/icon-512.png', Astro.site).href,
+  foundingDate: company.foundingDate,
+  identifier: { '@type': 'PropertyValue', propertyID: 'SIREN', value: company.siren.replace(/\s/g, '') },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: company.address.street,
+    postalCode: company.address.postalCode,
+    addressLocality: company.address.city,
+    addressCountry: company.address.countryCode,
+  },
+};
+
+const fontFaces = `
+@font-face{font-family:'Archivo';font-style:normal;font-display:swap;font-weight:100 900;font-stretch:62% 125%;src:url(${archivoUrl}) format('woff2')}
+@font-face{font-family:'Martian Mono';font-style:normal;font-display:swap;font-weight:100 800;src:url(${martianUrl}) format('woff2')}`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {!noindex && <link rel="canonical" href={canonical.href} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f3f6fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f3b78" media="(prefers-color-scheme: dark)" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="preload" href={archivoUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={martianUrl} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fontFaces} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={company.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="KZULAB, laboratoire d'idées" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.href} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+
+    <!-- Thème : préférence éventuellement choisie via le bouton, conservée dans le navigateur uniquement. -->
+    <script is:inline>
+      try {
+        var t = localStorage.getItem('kz-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a
+      href="#contenu"
+      class="label absolute -left-[999px] top-2 z-10 bg-ink px-4 py-3 text-bg focus:left-2"
+    >{t('skip')}</a>
+    <div class="sheet">
+      <Header lang={lang} />
+      <main id="contenu" class="flex-1">
+        <slot />
+      </main>
+      <Cartouche lang={lang} />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+  /** Mention en petites capitales à droite du titre, ex. « Mise à jour : … ». */
+  note?: string;
+}
+const { title, note } = Astro.props;
+---
+
+<div class="mb-2 flex flex-wrap items-baseline justify-between gap-4">
+  <h1 class="display draw m-0 text-[clamp(2.2rem,7vw,4.4rem)] [font-stretch:120%]">{title}</h1>
+  {note && <span class="label text-ink-soft">{note}</span>}
+</div>

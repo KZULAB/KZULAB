@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page introuvable — KZULAB"
+  description="Cette page n'existe pas ou a été déplacée."
+  noindex
+>
+  <div class="wrap pt-12 pb-20">
+    <p class="dim label draw mb-2.5" aria-hidden="true"><span>Erreur 404 · Page introuvable</span></p>
+    <div>
+      <p class="draw m-0 text-[clamp(5rem,30vw,18rem)] leading-[0.82] font-extrabold [font-stretch:125%]" aria-hidden="true">
+        4<span class="outline-text">0</span>4
+      </p>
+    </div>
+    <div class="fade-in mt-8 grid items-end gap-6 lg:grid-cols-[1.3fr_1fr]">
+      <div>
+        <h1 class="display m-0 mb-3 text-[clamp(1.6rem,4vw,2.4rem)]">Cette page ne figure pas sur le plan</h1>
+        <p class="m-0 max-w-[36ch] text-ink-soft">L'adresse est peut-être erronée, ou la page a été déplacée. Revenez à l'accueil pour retrouver nos projets.</p>
+      </div>
+      <div>
+        <a class="btn-plan" href="/"><span>Revenir à l'accueil</span><span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
