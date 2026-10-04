@@ -16,6 +16,8 @@ export interface Project {
   status: ProjectStatus;
   pitch: string;
   icon?: { src: ImageMetadata; alt: string };
+  /** Site du projet : rend toute la carte cliquable (uniquement s'il est en ligne). */
+  url?: string;
   /** Liens uniquement s'ils sont confirmés et en ligne (ex. App Store, Google Play, site). */
   links?: { label: string; url: string }[];
 }
@@ -26,6 +28,7 @@ export const projects: Project[] = [
     kind: 'Jeu mobile',
     platforms: ['iOS', 'Android'],
     status: 'coming-soon',
+    url: 'https://animacatch.kzulab.com',
     pitch:
       "Photographiez un animal croisé dans la vraie vie : l'application le reconnaît et l'ajoute à votre carnet de collection. Gagnez de l'expérience, complétez votre carnet espèce par espèce et comparez-vous à vos amis.",
     icon: {

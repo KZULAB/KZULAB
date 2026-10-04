@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 
 {
   project ? (
-    <article class="fig" aria-labelledby={`fig-${figure}`}>
+    <article class:list={['fig', { linked: project.url }]} aria-labelledby={`fig-${figure}`}>
       <div class="fig-bar label">
         <span>{t('projects.fig')} {figure}</span>
         <span>{project.kind} · {project.platforms.join(' / ')}</span>
@@ -27,13 +27,22 @@ const t = useTranslations(lang);
           </div>
         )}
         <div>
-          <h3 id={`fig-${figure}`} class="display mb-2.5 text-[2.1rem]">{project.name}</h3>
+          <h3 id={`fig-${figure}`} class="display mb-2.5 text-[2.1rem]">
+            {project.url ? (
+              <a class="card-link" href={project.url} rel="noopener">
+                {project.name}
+                <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              project.name
+            )}
+          </h3>
           <p class="badge label">{t(`status.${project.status}`)}</p>
           <p class="m-0">{project.pitch}</p>
           {project.links && project.links.length > 0 && (
             <ul class="mt-4 flex list-none flex-wrap gap-3 p-0">
               {project.links.map((l) => (
-                <li><a class="label inline-block border-[1.5px] border-line px-3 py-2.5" href={l.url} rel="noopener">{l.label}</a></li>
+                <li><a class="label relative z-[1] inline-block border-[1.5px] border-line px-3 py-2.5" href={l.url} rel="noopener">{l.label}</a></li>
               ))}
             </ul>
           )}
@@ -61,6 +70,50 @@ const t = useTranslations(lang);
     background: var(--surface);
     display: grid;
     grid-template-rows: auto 1fr auto;
+  }
+  /* Carte cliquable : le lien du titre s'étend à toute la carte. */
+  .fig.linked {
+    position: relative;
+  }
+  .fig.linked:hover {
+    border-color: var(--mark);
+  }
+  .card-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .card-link:focus-visible {
+    outline: none;
+  }
+  .fig.linked:has(.card-link:focus-visible) {
+    outline: 3px solid var(--mark);
+    outline-offset: 3px;
+  }
+  .fig.linked:hover .card-link {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .arrow {
+    margin-left: 0.3em;
+    font-size: 0.6em;
+    vertical-align: 0.3em;
+    color: var(--mark);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .fig.linked {
+      transition:
+        border-color 0.15s,
+        transform 0.15s;
+    }
+    .fig.linked:hover {
+      transform: translateY(-2px);
+    }
   }
   .fig.todo {
     background: transparent;
