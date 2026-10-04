@@ -28,6 +28,8 @@ export const company = {
   email: 'contact@kzulab.com',
   phone: { display: '06 52 54 84 37', international: '+33 6 52 54 84 37', href: 'tel:+33652548437' },
   url: 'https://kzulab.com',
+  /** Profils publics officiels de la société (JSON-LD `sameAs`). Ajouter ici LinkedIn, fiches des stores… */
+  sameAs: ['https://github.com/KZULAB'],
 } as const;
 
 export const host = {

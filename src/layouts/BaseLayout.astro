@@ -21,9 +21,11 @@ const t = useTranslations(lang);
 const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
 
+const organizationId = `${company.url}/#organization`;
 const organization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': organizationId,
   name: company.name,
   legalName: company.name,
   url: company.url,
@@ -38,7 +40,21 @@ const organization = {
     addressLocality: company.address.city,
     addressCountry: company.address.countryCode,
   },
+  sameAs: company.sameAs,
 };
+
+// Nom du site affiché par Google dans les résultats : balisage attendu sur la page d'accueil uniquement.
+const website =
+  canonical.pathname === '/'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: company.name,
+        url: `${company.url}/`,
+        inLanguage: 'fr-FR',
+        publisher: { '@id': organizationId },
+      }
+    : null;
 
 const fontFaces = `
 @font-face{font-family:'Archivo';font-style:normal;font-display:swap;font-weight:100 900;font-stretch:62% 125%;src:url(${archivoUrl}) format('woff2')}
@@ -84,6 +100,7 @@ const fontFaces = `
     <meta name="twitter:image" content={ogImage.href} />
 
     <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+    {website && <script type="application/ld+json" set:html={JSON.stringify(website)} />}
 
     <!-- Thème : préférence éventuellement choisie via le bouton, conservée dans le navigateur uniquement. -->
     <script is:inline>
