@@ -106,9 +106,9 @@
 
 @layer components {
   .wrap {
-    max-width: 1180px;
+    max-width: 1320px;
     margin-inline: auto;
-    padding-inline: 20px;
+    padding-inline: 16px;
   }
   .label {
     font-family: var(--font-mono);
@@ -126,14 +126,14 @@
   /* Planche : cadre extérieur du plan */
   .sheet {
     border: 1.5px solid var(--line);
-    margin: 12px;
+    margin: 12px 8px;
     min-height: calc(100vh - 24px);
     display: flex;
     flex-direction: column;
   }
   @media (min-width: 760px) {
     .sheet {
-      margin: 28px;
+      margin: 28px 16px;
       min-height: calc(100vh - 56px);
     }
   }
