@@ -4,8 +4,8 @@ import archivoUrl from '@fontsource-variable/archivo/files/archivo-latin-wdth-no
 import martianUrl from '@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Cartouche from '../components/Cartouche.astro';
-import { company } from '../data/site';
-import { defaultLang, useTranslations, type Lang } from '../i18n/ui';
+import { company, team } from '../data/site';
+import { defaultLang, otherLang, routes, useTranslations, type Lang, type RouteKey } from '../i18n/ui';
 
 interface Props {
   title: string;
@@ -13,13 +13,24 @@ interface Props {
   lang?: Lang;
   /** Page à ne pas indexer (ex. 404). */
   noindex?: boolean;
+  /** Page traduite (voir `routes` dans src/i18n/ui.ts) : active hreflang et le sélecteur de langue. */
+  route?: RouteKey;
 }
 
-const { title, description, lang = defaultLang, noindex = false } = Astro.props;
+const { title, description, lang = defaultLang, noindex = false, route } = Astro.props;
 const t = useTranslations(lang);
 // Avec build.format 'file', le chemin vaut « /index.html » ou « /page.html » : on publie des URL sans extension.
 const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
+const alt = otherLang(lang);
+const altHref = route ? routes[route][alt] : routes.home[alt];
+const locales = { fr: 'fr_FR', en: 'en_US' } as const;
+const alternates = route
+  ? [
+      ...(['fr', 'en'] as const).map((l) => ({ hreflang: l, href: new URL(routes[route][l], Astro.site).href })),
+      { hreflang: 'x-default', href: new URL(routes[route][defaultLang], Astro.site).href },
+    ]
+  : [];
 
 const organizationId = `${company.url}/#organization`;
 const organization = {
@@ -41,6 +52,13 @@ const organization = {
     addressCountry: company.address.countryCode,
   },
   sameAs: company.sameAs,
+  founder: team.map((m) => ({
+    '@type': 'Person',
+    '@id': `${company.url}${routes.team.fr}#${m.slug}`,
+    name: m.name,
+    jobTitle: m.role[lang],
+    ...(m.linkedin ? { sameAs: [m.linkedin] } : {}),
+  })),
 };
 
 // Nom du site affiché par Google dans les résultats : balisage attendu sur la page d'accueil uniquement.
@@ -70,6 +88,7 @@ const fontFaces = `
     <meta name="description" content={description} />
     {!noindex && <link rel="canonical" href={canonical.href} />}
     {noindex && <meta name="robots" content="noindex" />}
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#f3f6fb" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0f3b78" media="(prefers-color-scheme: dark)" />
@@ -85,7 +104,8 @@ const fontFaces = `
     <style is:inline set:html={fontFaces} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale" content={locales[lang]} />
+    {route && <meta property="og:locale:alternate" content={locales[alt]} />}
     <meta property="og:site_name" content={company.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -93,7 +113,7 @@ const fontFaces = `
     <meta property="og:image" content={ogImage.href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="KZULAB, laboratoire d'idées" />
+    <meta property="og:image:alt" content={t('og.alt')} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -116,7 +136,7 @@ const fontFaces = `
       class="label absolute -left-[999px] top-2 z-10 bg-ink px-4 py-3 text-bg focus:left-2"
     >{t('skip')}</a>
     <div class="sheet">
-      <Header lang={lang} />
+      <Header lang={lang} altHref={altHref} />
       <main id="contenu" class="flex-1">
         <slot />
       </main>

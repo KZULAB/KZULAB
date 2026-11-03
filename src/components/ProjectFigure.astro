@@ -18,16 +18,16 @@ const t = useTranslations(lang);
     <article class:list={['fig', { linked: project.url }]} aria-labelledby={`fig-${figure}`}>
       <div class="fig-bar label">
         <span>{t('projects.fig')} {figure}</span>
-        <span>{project.kind} · {project.platforms.join(' / ')}</span>
+        <span>{project.kind[lang]} · {project.platforms.join(' / ')}</span>
       </div>
       <div class="fig-body">
         {project.icon && (
           <div class="icon-frame">
-            <Image src={project.icon.src} alt={project.icon.alt} width={118} height={118} densities={[1, 2]} loading="lazy" class="rounded-[26px]" />
+            <Image src={project.icon.src} alt={project.icon.alt[lang]} width={118} height={118} densities={[1, 2]} loading="lazy" class="rounded-[26px]" />
           </div>
         )}
         <div>
-          <h3 id={`fig-${figure}`} class="display mb-2.5 text-[2.1rem]">
+          <h3 id={`fig-${figure}`} class="display mb-2.5 text-[clamp(1.6rem,8vw,2.1rem)]">
             {project.url ? (
               <a class="card-link" href={project.url} target="_blank" rel="noopener">
                 {project.name}
@@ -39,7 +39,7 @@ const t = useTranslations(lang);
             )}
           </h3>
           <p class="badge label">{t(`status.${project.status}`)}</p>
-          <p class="m-0">{project.pitch}</p>
+          <p class="m-0">{project.pitch[lang]}</p>
           {project.links && project.links.length > 0 && (
             <ul class="mt-4 flex list-none flex-wrap gap-3 p-0">
               {project.links.map((l) => (

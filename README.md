@@ -1,6 +1,6 @@
 # kzulab.com
 
-Site vitrine de **KZULAB** : une page d'accueil (projets, à propos, contact) et les pages légales.
+Site vitrine de **KZULAB** : une page d'accueil (projets, à propos, contact), une page Équipe, en français et en anglais (`/en`), et les pages légales (en français).
 Astro (sortie 100 % statique) + TypeScript + Tailwind CSS, hébergé sur GitHub Pages.
 
 > ⚠️ Ce dépôt est **public**. Ne jamais y commiter de secret, de document officiel ni de donnée personnelle non publique. Voir [CLAUDE.md](CLAUDE.md).
@@ -25,22 +25,26 @@ Tout se passe dans [src/data/projects.ts](src/data/projects.ts) :
 3. Ajouter `links` **seulement** quand les liens sont confirmés et en ligne (App Store, Google Play, site du projet).
 4. Ajuster `upcomingSlots` (nombre de cartes « Projet en préparation », 0 pour aucune).
 
-Les informations de la société (mentions légales, équipe, contact) sont dans [src/data/site.ts](src/data/site.ts). Les libellés d'interface sont dans [src/i18n/ui.ts](src/i18n/ui.ts).
+Les informations de la société (mentions légales, équipe, contact) sont dans [src/data/site.ts](src/data/site.ts). Les libellés d'interface et les routes localisées sont dans [src/i18n/ui.ts](src/i18n/ui.ts).
+
+## Compléter la page Équipe
+
+Dans [src/data/site.ts](src/data/site.ts), tableau `team` : pour chaque dirigeant, renseigner `photo` (portrait déposé dans `src/assets/team/`, converti en AVIF/WebP au build), `bio` (FR et EN, 2 à 3 lignes) et `linkedin`. Les champs restés à `null` ne s'affichent pas ; `npm run build` liste ce qui manque et `npm run dev` affiche des repères « TODO » sur la page.
 
 ## Structure
 
 ```
 src/
   data/        projets et informations de la société
-  i18n/        libellés d'interface (français ; prêt pour l'anglais)
+  i18n/        libellés d'interface et routes (français, anglais)
   layouts/     gabarit commun : <head>, SEO, Open Graph, JSON-LD
-  components/  en-tête, cartouche (pied de page), figures de projet
-  pages/       accueil, mentions légales, confidentialité, 404
+  components/  en-tête, cartouche (pied de page), figures de projet, accueil et page Équipe partagés FR/EN
+  pages/       accueil, équipe, mentions légales, confidentialité, 404 ; en/ : accueil et équipe en anglais
   styles/      jetons de couleur (clair / sombre) et styles globaux
 public/        CNAME, robots.txt, icônes, image Open Graph
 ```
 
-**Version anglaise (non implémentée)** : ajouter `'en'` à `i18n.locales` dans [astro.config.mjs](astro.config.mjs), compléter `ui.en` dans `src/i18n/ui.ts`, puis créer les pages sous `src/pages/en/`.
+**Version anglaise** : pages sous `src/pages/en/`, libellés dans `ui.en` (`src/i18n/ui.ts`). Pour traduire une nouvelle page, l'ajouter à `routes` (sélecteur de langue et balises hreflang). Les pages légales restent en français, texte de référence.
 
 ## Vie privée
 

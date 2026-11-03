@@ -7,11 +7,10 @@ export default defineConfig({
   site: 'https://kzulab.com',
   trailingSlash: 'never',
   build: { format: 'file' },
-  // Français seul pour l'instant. Pour ajouter l'anglais : ajouter 'en' à `locales`,
-  // compléter src/i18n/ui.ts et créer les pages sous src/pages/en/.
+  // Français à la racine, anglais sous /en (libellés et routes : src/i18n/ui.ts).
   i18n: {
     defaultLocale: 'fr',
-    locales: ['fr'],
+    locales: ['fr', 'en'],
     routing: { prefixDefaultLocale: false },
   },
   integrations: [sitemap()],

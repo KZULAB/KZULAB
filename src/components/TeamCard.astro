@@ -1,0 +1,182 @@
+---
+// Carte d'un dirigeant (page Équipe). Contenus dans src/data/site.ts (`team`).
+// Un champ à null n'est pas affiché en production ; en local, un repère « TODO » le signale.
+import { Picture } from 'astro:assets';
+import type { TeamMember } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  figure: number;
+  member: TeamMember;
+}
+const { lang, figure, member } = Astro.props;
+const t = useTranslations(lang);
+const initials = member.name
+  .split(/\s+/)
+  .map((w) => w[0])
+  .join('');
+const dev = import.meta.env.DEV;
+// Guillemets typographiques : « … » (espaces insécables) en français, “…” en anglais.
+const quotes = lang === 'fr' ? ['« ', ' »'] : ['“', '”'];
+---
+
+<article id={member.slug} class="card" aria-labelledby={`${member.slug}-nom`}>
+  <div class="card-bar label">
+    <span>{t('projects.fig')} {figure}</span>
+    <span>{t('team.cofounder')}</span>
+  </div>
+  <div class="photo">
+    {
+      member.photo ? (
+        <Picture
+          src={member.photo.src}
+          alt={member.photo.alt[lang]}
+          formats={['avif', 'webp']}
+          width={480}
+          height={600}
+          widths={[320, 480, 720, 960]}
+          sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, calc(100vw - 52px)"
+          fit="cover"
+          position="top"
+          loading={figure === 1 ? 'eager' : 'lazy'}
+        />
+      ) : (
+        <div class="placeholder hatch" aria-hidden="true">
+          <span class="initials outline-text">{initials}</span>
+          {dev && <span class="todo label">TODO photo</span>}
+        </div>
+      )
+    }
+  </div>
+  <div class="card-body">
+    <h2 id={`${member.slug}-nom`} class="display m-0 mb-3 text-[clamp(1.6rem,4vw,2rem)]">{member.name}</h2>
+    <p class="badge label">{member.role[lang]}</p>
+    {
+      member.bio ? (
+        <blockquote class="quote">
+          <p>{quotes[0]}{member.bio[lang]}{quotes[1]}</p>
+        </blockquote>
+      ) : (
+        dev && <p class="todo label m-0">TODO bio</p>
+      )
+    }
+    {
+      member.linkedin ? (
+        <a
+          class="linkedin label"
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t('team.linkedinOf')} ${member.name} ${t('link.newTab')}`}
+        >
+          {t('team.linkedin')}
+          <span aria-hidden="true">↗</span>
+        </a>
+      ) : (
+        dev && <p class="todo label m-0">TODO LinkedIn</p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .card {
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    min-width: 0;
+  }
+  .card-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--text-soft);
+  }
+  .photo {
+    aspect-ratio: 4 / 5;
+    border-bottom: 1px solid var(--line-soft);
+    overflow: hidden;
+  }
+  .photo :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .placeholder {
+    position: relative;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+  .initials {
+    font-weight: 800;
+    font-stretch: 125%;
+    font-size: clamp(4rem, 18vw, 6.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .card-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1.5px solid var(--mark);
+    color: var(--mark);
+    padding: 0.3rem 0.6rem;
+    margin: 0 0 1rem;
+  }
+  .badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: currentColor;
+    transform: rotate(45deg);
+  }
+  .quote {
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--mark);
+    font-style: italic;
+  }
+  .quote p {
+    margin: 0;
+  }
+  .linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    margin-top: 1.25rem;
+    padding: 0 0.9rem;
+    border: 1.5px solid var(--line);
+    text-decoration: none;
+  }
+  .linkedin:hover {
+    background: var(--grid-strong);
+  }
+  .todo {
+    color: var(--mark);
+    border: 1.5px dashed var(--mark);
+    background: var(--bg);
+    padding: 0.3rem 0.6rem;
+    margin-top: 0.75rem;
+  }
+  .placeholder .todo {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    margin: 0;
+  }
+</style>

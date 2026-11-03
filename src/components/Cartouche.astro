@@ -6,19 +6,22 @@ import { useTranslations, type Lang } from '../i18n/ui';
 interface Props {
   lang: Lang;
 }
-const t = useTranslations(Astro.props.lang);
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+// Pages légales en français uniquement (texte de référence) : signalées comme telles en anglais.
+const legalLang = lang === 'fr' ? undefined : 'fr';
 const year = new Date().getFullYear();
 ---
 
 <footer class="cartouche" aria-label={t('footer.label')}>
   <div class="cell big"><span class="label">{t('footer.name')}</span><p class="big-name">{company.name}</p></div>
-  <div class="cell"><span class="label">{t('footer.form')}</span><p>{company.legalFormShort} au capital de {company.capitalShort}</p></div>
+  <div class="cell"><span class="label">{t('footer.form')}</span><p>{t('footer.formValue')}</p></div>
   <div class="cell"><span class="label">{t('footer.rcs')}</span><p set:html={company.rcs.replace(/(\d) (\d)/g, '$1&nbsp;$2')} /></div>
   <div class="cell wide"><span class="label">{t('footer.contact')}</span><p><a href={`mailto:${company.email}`}>{company.email}</a></p></div>
   <div class="cell year"><span class="label">{t('footer.year')}</span><p>© {year} {company.name}</p></div>
   <div class="cell wide docs">
     <span class="label">{t('footer.docs')}</span>
-    <p><a href="/mentions-legales">{t('legal.notice')}</a> · <a href="/confidentialite">{t('legal.privacy')}</a></p>
+    <p><a href="/mentions-legales" hreflang={legalLang}>{t('legal.notice')}</a> · <a href="/confidentialite" hreflang={legalLang}>{t('legal.privacy')}</a></p>
   </div>
   <div class="cell cookies"><span class="label">{t('footer.cookies')}</span><p>{t('footer.cookies.value')}</p></div>
 </footer>

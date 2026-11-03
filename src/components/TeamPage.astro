@@ -1,0 +1,70 @@
+---
+// Page Équipe, commune aux versions française (/equipe) et anglaise (/en/team).
+// Règle (CLAUDE.md) : ni adresse du siège ni téléphone ici, uniquement sur /mentions-legales.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTitle from './PageTitle.astro';
+import TeamCard from './TeamCard.astro';
+import { projects } from '../data/projects';
+import { company, team, teamTodos } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+const { lang, title, description } = Astro.props;
+const t = useTranslations(lang);
+
+const todos = teamTodos();
+if (todos.length && lang === 'fr') {
+  console.warn(`\n[équipe] ${todos.length} contenu(s) à compléter dans src/data/site.ts :\n  - ${todos.join('\n  - ')}\n`);
+}
+
+const flagship = projects[0];
+const year = company.foundingDate.slice(0, 4);
+const nb = (s: string) => s.replace(/(\d) (\d)/g, '$1 $2');
+const rcs =
+  lang === 'fr'
+    ? nb(company.rcs)
+    : `Pontoise Trade and Companies Register (RCS), no. ${nb(company.siren)}`;
+const form = lang === 'fr' ? `${company.legalForm}, au capital de ${company.capital}` : t('footer.formValue');
+---
+
+<BaseLayout title={title} description={description} lang={lang} route="team">
+  <div class="wrap pt-12 pb-16">
+    <PageTitle title={t('team.title')} note={t('team.sheet')} />
+    <p class="mt-4 mb-10 max-w-[60ch] text-[clamp(1.1rem,2.2vw,1.35rem)] leading-[1.4] [font-stretch:90%]">{t('team.intro')}</p>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {team.map((m, i) => <TeamCard lang={lang} figure={i + 1} member={m} />)}
+    </div>
+
+    <section class="prose-plan mt-14" aria-labelledby="societe-titre">
+      <h2 id="societe-titre">{t('company.title')}</h2>
+      <dl>
+        <div><dt>{t('company.legalName')}</dt><dd>{company.name} {company.legalFormShort}</dd></div>
+        <div><dt>{t('company.form')}</dt><dd>{form}</dd></div>
+        <div><dt>{t('company.siren')}</dt><dd>{nb(company.siren)}</dd></div>
+        <div><dt>{t('company.rcs')}</dt><dd>{rcs}</dd></div>
+        <div><dt>{t('company.founded')}</dt><dd>{year}</dd></div>
+        {
+          flagship?.url && (
+            <div>
+              <dt>{t('company.flagship')}</dt>
+              <dd>
+                <a href={flagship.url} target="_blank" rel="noopener">{flagship.name}</a>
+                <span class="sr-only"> {t('link.newTab')}</span> — {flagship.kind[lang]}, {t(`status.${flagship.status}`).toLowerCase()}
+              </dd>
+            </div>
+          )
+        }
+        <div><dt>{t('company.contact')}</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+      </dl>
+      <p>
+        {t('company.legalLink')}{' '}
+        <a href="/mentions-legales" hreflang={lang === 'fr' ? undefined : 'fr'}>{t('company.legalLinkText')}</a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
