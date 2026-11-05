@@ -38,7 +38,7 @@ const t = useTranslations(lang);
               project.name
             )}
           </h3>
-          <p class="badge label">{t(`status.${project.status}`)}</p>
+          <p class:list={['badge label', { available: project.status === 'available' }]}>{t(`status.${project.status}`)}</p>
           <p class="m-0">{project.pitch[lang]}</p>
           {project.links && project.links.length > 0 && (
             <ul class="mt-4 flex list-none flex-wrap gap-3 p-0">
@@ -152,6 +152,10 @@ const t = useTranslations(lang);
     color: var(--mark);
     padding: 0.3rem 0.6rem;
     margin: 0 0 1rem;
+  }
+  .badge.available {
+    border-color: var(--available);
+    color: var(--available);
   }
   .badge::before {
     content: '';

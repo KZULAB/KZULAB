@@ -61,7 +61,7 @@ const fr = {
   'about.sheet': 'Planche 2 — Société',
   'about.p1': "KZULAB est un laboratoire d'idées : nous imaginons et développons des projets informatiques.",
   'about.p2':
-    'La société a été fondée en 2026 par trois cofondateurs. Son premier projet, Animacatch, est un jeu mobile bientôt disponible sur iOS et Android.',
+    'La société a été fondée en 2026 par trois cofondateurs. Son premier projet, Animacatch, est un jeu mobile disponible sur Android, et bientôt sur iOS.',
   'about.teamLink': "Découvrir l'équipe",
   'team.caption': 'Équipe — cofondateurs',
   'team.name': 'Nom',
@@ -133,7 +133,7 @@ const en: Record<UiKey, string> = {
   'about.sheet': 'Sheet 2 — Company',
   'about.p1': 'KZULAB is an idea lab: we imagine and build software projects.',
   'about.p2':
-    'The company was founded in 2026 by three co-founders. Its first project, Animacatch, is a mobile game coming soon to iOS and Android.',
+    'The company was founded in 2026 by three co-founders. Its first project, Animacatch, is a mobile game available on Android and coming soon to iOS.',
   'about.teamLink': 'Meet the team',
   'team.caption': 'Team — co-founders',
   'team.name': 'Name',

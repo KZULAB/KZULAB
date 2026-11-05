@@ -27,8 +27,8 @@ export const projects: Project[] = [
   {
     name: 'Animacatch',
     kind: { fr: 'Jeu mobile', en: 'Mobile game' },
-    platforms: ['iOS', 'Android'],
-    status: 'coming-soon',
+    platforms: ['Android', 'IOS'],
+    status: 'available',
     url: 'https://animacatch.kzulab.com',
     pitch: {
       fr: "Photographiez un animal croisé dans la vraie vie : l'application le reconnaît et l'ajoute à votre carnet de collection. Gagnez de l'expérience, complétez votre carnet espèce par espèce et comparez-vous à vos amis.",

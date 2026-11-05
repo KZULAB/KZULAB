@@ -15,6 +15,7 @@
   --text: #0b2a55;
   --text-soft: #3e5f8e;
   --mark: #a63a0c;
+  --available: #0f6e4a;
   --hatch: rgb(15 59 120 / 0.18);
   color-scheme: light;
 }
@@ -30,6 +31,7 @@
     --text: #f2f6ff;
     --text-soft: #b5c9ec;
     --mark: #ffd447;
+    --available: #5fe3a6;
     --hatch: rgb(230 238 255 / 0.2);
     color-scheme: dark;
   }
@@ -44,6 +46,7 @@
   --text: #f2f6ff;
   --text-soft: #b5c9ec;
   --mark: #ffd447;
+  --available: #5fe3a6;
   --hatch: rgb(230 238 255 / 0.2);
   color-scheme: dark;
 }
