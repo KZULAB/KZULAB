@@ -23,7 +23,8 @@ const { title, description, lang = defaultLang, noindex = false, route } = Astro
 const t = useTranslations(lang);
 // Avec build.format 'file', le chemin vaut « /index.html » ou « /page.html » : on publie des URL sans extension.
 const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), Astro.site);
-const ogImage = new URL('/og.png', Astro.site);
+// Image de partage par langue (1200 × 630).
+const ogImage = new URL(lang === 'en' ? '/og-en.png' : '/og.png', Astro.site);
 const alt = otherLang(lang);
 const altHref = route ? routes[route][alt] : routes.home[alt];
 const locales = { fr: 'fr_FR', en: 'en_US' } as const;

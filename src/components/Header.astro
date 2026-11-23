@@ -34,7 +34,7 @@ const current = Astro.url.pathname.replace(/\.html$/, '');
         href={altHref}
         hreflang={alt}
         lang={alt}
-        aria-label={t('lang.switch')}
+        aria-label={`${t('lang.short')}, ${t('lang.switch')}`}
         class="label grid h-11 min-w-11 place-items-center border-[1.5px] border-line px-2 no-underline hover:bg-[var(--grid-strong)]"
       >{t('lang.short')}</a>
       <button

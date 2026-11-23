@@ -40,7 +40,7 @@ export const projects: Project[] = [
     platforms: ['Android', 'iOS'],
     status: 'available',
     category: 'GameApplication',
-    accent: { ink: '#3C7248', pop: '#F7AE35' },
+    accent: { ink: '#3C7248', pop: '#4C8C5B' },
     url: 'https://animacatch.kzulab.com',
     pitch: {
       fr: "Photographiez un animal croisé dans la vraie vie : l'application le reconnaît et l'ajoute à votre carnet de collection. Gagnez de l'expérience, complétez votre carnet espèce par espèce et comparez-vous à vos amis.",

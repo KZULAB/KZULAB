@@ -33,6 +33,7 @@ const quotes = lang === 'fr' ? ['« ', ' »'] : ['“', '”'];
           src={member.photo.src}
           alt={member.photo.alt[lang]}
           formats={['avif', 'webp']}
+          fallbackFormat="webp"
           width={480}
           height={600}
           widths={[320, 480, 720, 960]}
