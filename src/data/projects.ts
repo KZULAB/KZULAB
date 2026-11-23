@@ -117,4 +117,4 @@ export const projects: Project[] = [
 ];
 
 /** Nombre de cartes « Projet en préparation » à afficher après les vrais projets (0 pour aucune). */
-export const upcomingSlots = 0;
+export const upcomingSlots = 1;

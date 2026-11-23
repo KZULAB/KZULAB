@@ -58,7 +58,7 @@ const colon = lang === 'fr' ? '\u00a0: ' : ': ';
       <p class="fig-legend label">{t('projects.state')}{colon}{t(project.status === 'available' ? 'status.available' : 'status.in-development')}</p>
     </article>
   ) : (
-    <article class="fig todo" aria-labelledby={`fig-${figure}`}>
+    <article class="fig todo lg:col-span-2" aria-labelledby={`fig-${figure}`}>
       <div class="fig-bar label">
         <span>{t('projects.fig')} {figure}</span>
         <span>{t('projects.upcoming')}</span>
