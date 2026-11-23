@@ -1,10 +1,12 @@
 ---
+import { createHash } from 'node:crypto';
 import '../styles/global.css';
 import archivoUrl from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import martianUrl from '@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Cartouche from '../components/Cartouche.astro';
 import { company, team } from '../data/site';
+import { projects } from '../data/projects';
 import { defaultLang, otherLang, routes, useTranslations, type Lang, type RouteKey } from '../i18n/ui';
 
 interface Props {
@@ -39,6 +41,7 @@ const organization = {
   '@id': organizationId,
   name: company.name,
   legalName: company.name,
+  description: t('org.description'),
   url: company.url,
   email: company.email,
   logo: new URL('/icon-512.png', Astro.site).href,
@@ -74,9 +77,45 @@ const website =
       }
     : null;
 
+// Liste des projets (accueil FR et EN) : chaque application est publiée par l'organisation ci-dessus.
+const projectList =
+  route === 'home'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: t('projects.title'),
+        itemListOrder: 'https://schema.org/ItemListUnordered',
+        numberOfItems: projects.length,
+        itemListElement: projects.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'MobileApplication',
+            ...(p.url ? { '@id': `${p.url}/#app`, url: p.url } : {}),
+            name: p.name,
+            description: p.pitch[lang],
+            applicationCategory: p.category,
+            operatingSystem: p.platforms.join(', '),
+            ...(p.icon ? { image: new URL(p.icon.src.src, Astro.site).href } : {}),
+            publisher: { '@id': organizationId },
+          },
+        })),
+      }
+    : null;
+
+// Couleurs propres à chaque projet (cartes de l'accueil), déclarées ici et non en attribut style="" :
+// la CSP n'autorise que les balises <style> du <head> dont Astro calcule l'empreinte.
+const accents =
+  route === 'home'
+    ? projects.map((p) => `[data-accent='${p.name.toLowerCase()}']{--accent-ink:${p.accent.ink};--accent-pop:${p.accent.pop}}`).join('')
+    : '';
+
 const fontFaces = `
 @font-face{font-family:'Archivo';font-style:normal;font-display:swap;font-weight:100 900;font-stretch:62% 125%;src:url(${archivoUrl}) format('woff2')}
-@font-face{font-family:'Martian Mono';font-style:normal;font-display:swap;font-weight:100 800;src:url(${martianUrl}) format('woff2')}`;
+@font-face{font-family:'Martian Mono';font-style:normal;font-display:swap;font-weight:100 800;src:url(${martianUrl}) format('woff2')}${accents}`;
+// Empreinte de ce bloc <style> en ligne pour la CSP (Astro ne calcule que celles de ses propres styles et scripts).
+const fontFacesHash = createHash('sha256').update(fontFaces).digest('base64');
+Astro.csp?.insertStyleHash(`sha256-${fontFacesHash}`);
 ---
 
 <!doctype html>
@@ -121,6 +160,7 @@ const fontFaces = `
 
     <script type="application/ld+json" set:html={JSON.stringify(organization)} />
     {website && <script type="application/ld+json" set:html={JSON.stringify(website)} />}
+    {projectList && <script type="application/ld+json" set:html={JSON.stringify(projectList)} />}
 
     <!-- Thème : préférence éventuellement choisie via le bouton, conservée dans le navigateur uniquement. -->
     <script is:inline>

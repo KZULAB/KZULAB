@@ -21,7 +21,10 @@ const year = new Date().getFullYear();
   <div class="cell year"><span class="label">{t('footer.year')}</span><p>© {year} {company.name}</p></div>
   <div class="cell wide docs">
     <span class="label">{t('footer.docs')}</span>
-    <p><a href="/mentions-legales" hreflang={legalLang}>{t('legal.notice')}</a> · <a href="/confidentialite" hreflang={legalLang}>{t('legal.privacy')}</a></p>
+    <ul class="docs-list" aria-label={t('legal.docs')}>
+      <li><a href="/mentions-legales" hreflang={legalLang}>{t('legal.notice')}</a></li>
+      <li><a href="/confidentialite" hreflang={legalLang}>{t('legal.privacy')}</a></li>
+    </ul>
   </div>
   <div class="cell cookies"><span class="label">{t('footer.cookies')}</span><p>{t('footer.cookies.value')}</p></div>
 </footer>
@@ -57,6 +60,18 @@ const year = new Date().getFullYear();
     display: inline-block;
     padding: 0.2rem 0;
     text-underline-offset: 3px;
+  }
+  /* Liens légaux côte à côte, séparés par l'espace seul (pas de puce ni de tiret). */
+  .docs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-weight: 700;
+    font-stretch: 105%;
+    font-size: 0.95rem;
   }
   .cell .big-name {
     font-stretch: 125%;

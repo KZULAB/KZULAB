@@ -54,7 +54,7 @@ const form = lang === 'fr' ? `${company.legalForm}, au capital de ${company.capi
               <dt>{t('company.flagship')}</dt>
               <dd>
                 <a href={flagship.url} target="_blank" rel="noopener">{flagship.name}</a>
-                <span class="sr-only"> {t('link.newTab')}</span> — {flagship.kind[lang]}, {t(`status.${flagship.status}`).toLowerCase()}
+                <span class="sr-only"> {t('link.newTab')}</span>, {flagship.kind[lang]}, {t(`status.${flagship.status}`).toLowerCase()}
               </dd>
             </div>
           )

@@ -39,7 +39,7 @@ const upcoming = Array.from({ length: upcomingSlots }, (_, i) => projects.length
         <h2 id="projets-titre" class="display m-0 text-[clamp(2rem,6vw,3.6rem)]">{t('projects.title')}</h2>
         <span class="label text-ink-soft">{t('projects.sheet')}</span>
       </div>
-      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div class="grid gap-6 lg:grid-cols-2">
         {projects.map((p, i) => <ProjectFigure lang={lang} figure={i + 1} project={p} />)}
         {upcoming.map((n) => <ProjectFigure lang={lang} figure={n} />)}
       </div>

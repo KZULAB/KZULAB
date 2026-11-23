@@ -21,9 +21,11 @@ npm run preview   # sert le contenu de dist/ pour vérifier le rendu final
 Tout se passe dans [src/data/projects.ts](src/data/projects.ts) :
 
 1. Déposer l'icône du projet (PNG carré, idéalement 1024 × 1024) dans `src/assets/projects/`, puis l'importer en haut du fichier.
-2. Ajouter un objet au tableau `projects` : `name`, `kind` (ex. « Jeu mobile »), `platforms`, `status` (`in-development`, `coming-soon` ou `available`), `pitch`, `icon`.
+2. Ajouter un objet au tableau `projects` : `name`, `kind` (ex. « Jeu mobile »), `platforms`, `status` (`in-development`, `coming-soon` ou `available`), `pitch`, `category` (catégorie schema.org), `accent` (couleurs de la DA du projet, décoratives), `icon`, `url`.
 3. Ajouter `links` **seulement** quand les liens sont confirmés et en ligne (App Store, Google Play, site du projet).
 4. Ajuster `upcomingSlots` (nombre de cartes « Projet en préparation », 0 pour aucune).
+
+La carte, le JSON-LD `ItemList` de l'accueil et `/llms.txt` (`src/pages/llms.txt.ts`) sont générés depuis ce fichier.
 
 Les informations de la société (mentions légales, équipe, contact) sont dans [src/data/site.ts](src/data/site.ts). Les libellés d'interface et les routes localisées sont dans [src/i18n/ui.ts](src/i18n/ui.ts).
 

@@ -11,19 +11,25 @@ interface Props {
 }
 const { lang, figure, project } = Astro.props;
 const t = useTranslations(lang);
+// Deux-points : espace insécable avant en français, aucune espace en anglais.
+const colon = lang === 'fr' ? '\u00a0: ' : ': ';
 ---
 
 {
   project ? (
-    <article class:list={['fig', { linked: project.url }]} aria-labelledby={`fig-${figure}`}>
+    <article
+      class:list={['fig accented', { linked: project.url }]}
+      data-accent={project.name.toLowerCase()}
+      aria-labelledby={`fig-${figure}`}
+    >
       <div class="fig-bar label">
-        <span>{t('projects.fig')} {figure}</span>
-        <span>{project.kind[lang]} · {project.platforms.join(' / ')}</span>
+        <span class="inline-flex items-center gap-2"><span class="swatch" aria-hidden="true"></span>{t('projects.fig')} {figure}</span>
+        <span class="fig-meta"><span>{project.kind[lang]}</span><span>{project.platforms.join(' / ')}</span></span>
       </div>
       <div class="fig-body">
         {project.icon && (
           <div class="icon-frame">
-            <Image src={project.icon.src} alt={project.icon.alt[lang]} width={118} height={118} densities={[1, 2]} loading="lazy" class="rounded-[26px]" />
+            <Image src={project.icon.src} alt={project.icon.alt[lang]} width={118} height={118} densities={[1, 2]} format="webp" loading="lazy" decoding="async" class="rounded-[26px]" />
           </div>
         )}
         <div>
@@ -49,7 +55,7 @@ const t = useTranslations(lang);
           )}
         </div>
       </div>
-      <p class="fig-legend label">{t('projects.state')} : {t(project.status === 'available' ? 'status.available' : 'status.in-development')}</p>
+      <p class="fig-legend label">{t('projects.state')}{colon}{t(project.status === 'available' ? 'status.available' : 'status.in-development')}</p>
     </article>
   ) : (
     <article class="fig todo" aria-labelledby={`fig-${figure}`}>
@@ -60,7 +66,7 @@ const t = useTranslations(lang);
       <div class="hatch m-[22px] grid min-h-[200px] place-items-center border-[1.5px] border-dashed border-line-soft p-4 text-center">
         <h3 id={`fig-${figure}`} class="display bg-bg px-2.5 py-1.5 text-[1.4rem] leading-[1.1]">{t('projects.upcoming.title')}</h3>
       </div>
-      <p class="fig-legend label">{t('projects.state')} : {t('projects.upcoming.state')}</p>
+      <p class="fig-legend label">{t('projects.state')}{colon}{t('projects.upcoming.state')}</p>
     </article>
   )
 }
@@ -116,13 +122,37 @@ const t = useTranslations(lang);
       transform: translateY(-2px);
     }
   }
+  /* Couleurs propres au projet : un filet en tête de carte et une pastille, rien d'autre (la planche reste cyanotype). */
+  .fig.accented {
+    border-top: 6px solid var(--accent-pop);
+  }
+  .swatch {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, var(--accent-ink) 0 50%, var(--accent-pop) 50% 100%);
+  }
+  .fig-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.25rem 0;
+  }
+  .fig-meta > span + span {
+    margin-left: 0.6rem;
+    padding-left: 0.6rem;
+    border-left: 1px solid var(--line-soft);
+  }
   .fig.todo {
     background: transparent;
   }
   .fig-bar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.4rem 1rem;
     padding: 0.6rem 0.9rem;
     border-bottom: 1px solid var(--line-soft);
     color: var(--text-soft);

@@ -43,11 +43,11 @@ const fr = {
   'lang.switch': 'English version',
   'lang.short': 'EN',
   'og.alt': "KZULAB, laboratoire d'idées",
-  'hero.dim': "Laboratoire d'idées · Lanceur de projets",
+  'hero.dim': "Laboratoire d'idées et lanceur de projets",
   'hero.lede': "KZULAB est un laboratoire d'idées. Nous développons des projets informatiques.",
   'hero.cta': 'Voir nos projets',
   'projects.title': 'Nos projets',
-  'projects.sheet': 'Planche 1 — Projets',
+  'projects.sheet': 'Planche 1 : Projets',
   'projects.fig': 'Fig.',
   'link.newTab': '(nouvel onglet)',
   'projects.state': 'État',
@@ -58,16 +58,16 @@ const fr = {
   'status.coming-soon': 'Bientôt disponible',
   'status.available': 'Disponible',
   'about.title': 'À propos',
-  'about.sheet': 'Planche 2 — Société',
+  'about.sheet': 'Planche 2 : Société',
   'about.p1': "KZULAB est un laboratoire d'idées : nous imaginons et développons des projets informatiques.",
   'about.p2':
-    'La société a été fondée en 2026 par trois cofondateurs. Son premier projet, Animacatch, est un jeu mobile disponible sur Android, et bientôt sur iOS.',
+    "La société a été fondée en 2026 par trois cofondateurs. Son premier projet, Animacatch, est un jeu mobile disponible sur Android, et bientôt sur iOS. Trois applications mobiles suivent : Pincity, Gloup et Ciao.",
   'about.teamLink': "Découvrir l'équipe",
-  'team.caption': 'Équipe — cofondateurs',
+  'team.caption': 'Les trois cofondateurs',
   'team.name': 'Nom',
   'team.role': 'Fonction',
   'team.title': 'Équipe',
-  'team.sheet': 'Planche 4 — Direction',
+  'team.sheet': 'Planche 4 : Direction',
   'team.intro':
     'KZULAB a été fondée en 2026 par trois cofondateurs, qui en assurent ensemble la direction.',
   'team.cofounder': 'Cofondateur',
@@ -85,7 +85,7 @@ const fr = {
   'company.legalLink': 'Toutes les informations légales figurent dans les',
   'company.legalLinkText': 'mentions légales',
   'contact.title': 'Contact',
-  'contact.sheet': 'Planche 3 — Contact',
+  'contact.sheet': 'Planche 3 : Contact',
   'contact.text':
     "Une idée à nous soumettre, une proposition de partenariat ou une question sur l'un de nos projets ? Écrivez-nous par e-mail, nous vous répondrons dans les meilleurs délais.",
   'footer.label': 'Informations sur la société',
@@ -100,6 +100,9 @@ const fr = {
   'footer.cookies.value': 'Aucun',
   'legal.notice': 'Mentions légales',
   'legal.privacy': 'Confidentialité',
+  'legal.docs': 'Documents légaux',
+  'org.description':
+    "KZULAB est une société française (SAS) fondée en 2026 par trois cofondateurs. Elle imagine et développe des applications mobiles.",
 } as const;
 
 type UiKey = keyof typeof fr;
@@ -115,11 +118,11 @@ const en: Record<UiKey, string> = {
   'lang.switch': 'Version française',
   'lang.short': 'FR',
   'og.alt': 'KZULAB, idea lab',
-  'hero.dim': 'Idea lab · Project launcher',
+  'hero.dim': 'Idea lab and project launcher',
   'hero.lede': 'KZULAB is an idea lab. We build software projects.',
   'hero.cta': 'See our projects',
   'projects.title': 'Our projects',
-  'projects.sheet': 'Sheet 1 — Projects',
+  'projects.sheet': 'Sheet 1: Projects',
   'projects.fig': 'Fig.',
   'link.newTab': '(opens in a new tab)',
   'projects.state': 'Status',
@@ -130,16 +133,16 @@ const en: Record<UiKey, string> = {
   'status.coming-soon': 'Coming soon',
   'status.available': 'Available',
   'about.title': 'About',
-  'about.sheet': 'Sheet 2 — Company',
+  'about.sheet': 'Sheet 2: Company',
   'about.p1': 'KZULAB is an idea lab: we imagine and build software projects.',
   'about.p2':
-    'The company was founded in 2026 by three co-founders. Its first project, Animacatch, is a mobile game available on Android and coming soon to iOS.',
+    'The company was founded in 2026 by three co-founders. Its first project, Animacatch, is a mobile game available on Android and coming soon to iOS. Three mobile apps are next: Pincity, Gloup and Ciao.',
   'about.teamLink': 'Meet the team',
-  'team.caption': 'Team — co-founders',
+  'team.caption': 'The three co-founders',
   'team.name': 'Name',
   'team.role': 'Role',
   'team.title': 'Team',
-  'team.sheet': 'Sheet 4 — Leadership',
+  'team.sheet': 'Sheet 4: Leadership',
   'team.intro': 'KZULAB was founded in 2026 by three co-founders, who lead the company together.',
   'team.cofounder': 'Co-founder',
   'team.photoPending': 'Photo coming soon',
@@ -156,7 +159,7 @@ const en: Record<UiKey, string> = {
   'company.legalLink': 'All legal information is available in the',
   'company.legalLinkText': 'legal notice (in French)',
   'contact.title': 'Contact',
-  'contact.sheet': 'Sheet 3 — Contact',
+  'contact.sheet': 'Sheet 3: Contact',
   'contact.text':
     'Have an idea to share, a partnership proposal or a question about one of our projects? Email us and we will get back to you as soon as possible.',
   'footer.label': 'Company information',
@@ -171,6 +174,9 @@ const en: Record<UiKey, string> = {
   'footer.cookies.value': 'None',
   'legal.notice': 'Legal notice (in French)',
   'legal.privacy': 'Privacy policy (in French)',
+  'legal.docs': 'Legal documents',
+  'org.description':
+    'KZULAB is a French company (SAS) founded in 2026 by three co-founders. It imagines and builds mobile apps.',
 };
 
 export const ui = { fr, en } as const;
