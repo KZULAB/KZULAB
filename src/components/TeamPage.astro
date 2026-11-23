@@ -40,7 +40,7 @@ const form = lang === 'fr' ? `${company.legalForm}, au capital de ${company.capi
       {team.map((m, i) => <TeamCard lang={lang} figure={i + 1} member={m} />)}
     </div>
 
-    <section class="prose-plan mt-14" aria-labelledby="societe-titre">
+    <section class="prose-plan mt-14 max-w-none" aria-labelledby="societe-titre">
       <h2 id="societe-titre">{t('company.title')}</h2>
       <dl>
         <div><dt>{t('company.legalName')}</dt><dd>{company.name} {company.legalFormShort}</dd></div>
