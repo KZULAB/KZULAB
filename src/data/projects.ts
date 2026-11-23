@@ -23,9 +23,11 @@ export interface Project {
   category: string;
   /**
    * Couleurs de la direction artistique du projet, affichées en petit (pastille et filet de la carte).
-   * `ink` : couleur sombre de fond, `pop` : couleur vive. Purement décoratives, jamais pour du texte.
+   * `ink` : couleur sombre de fond, `pop` : couleur vive (pastille bicolore ink/pop).
+   * `band` : filet en tête de carte et contour au survol (`pop` par défaut).
+   * Purement décoratives, jamais pour du texte.
    */
-  accent: { ink: string; pop: string };
+  accent: { ink: string; pop: string; band?: string };
   icon?: { src: ImageMetadata; alt: Localized };
   /** Site du projet : rend toute la carte cliquable. */
   url?: string;
@@ -40,7 +42,7 @@ export const projects: Project[] = [
     platforms: ['Android', 'iOS'],
     status: 'available',
     category: 'GameApplication',
-    accent: { ink: '#3C7248', pop: '#4C8C5B' },
+    accent: { ink: '#3C7248', pop: '#F7AE35', band: '#4C8C5B' },
     url: 'https://animacatch.kzulab.com',
     pitch: {
       fr: "Photographiez un animal croisé dans la vraie vie : l'application le reconnaît et l'ajoute à votre carnet de collection. Gagnez de l'expérience, complétez votre carnet espèce par espèce et comparez-vous à vos amis.",

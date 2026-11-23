@@ -82,8 +82,9 @@ const colon = lang === 'fr' ? '\u00a0: ' : ': ';
   .fig.linked {
     position: relative;
   }
+  /* Au survol, tout le contour prend la couleur du filet du projet (--accent-band). */
   .fig.linked:hover {
-    border-color: var(--mark);
+    border-color: var(--accent-band, var(--mark));
   }
   .card-link {
     color: inherit;
@@ -124,7 +125,7 @@ const colon = lang === 'fr' ? '\u00a0: ' : ': ';
   }
   /* Couleurs propres au projet : un filet en tête de carte et une pastille, rien d'autre (la planche reste cyanotype). */
   .fig.accented {
-    border-top: 6px solid var(--accent-pop);
+    border-top: 6px solid var(--accent-band);
   }
   .swatch {
     width: 14px;

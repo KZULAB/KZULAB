@@ -108,7 +108,7 @@ const projectList =
 // la CSP n'autorise que les balises <style> du <head> dont Astro calcule l'empreinte.
 const accents =
   route === 'home'
-    ? projects.map((p) => `[data-accent='${p.name.toLowerCase()}']{--accent-ink:${p.accent.ink};--accent-pop:${p.accent.pop}}`).join('')
+    ? projects.map((p) => `[data-accent='${p.name.toLowerCase()}']{--accent-ink:${p.accent.ink};--accent-pop:${p.accent.pop};--accent-band:${p.accent.band ?? p.accent.pop}}`).join('')
     : '';
 
 const fontFaces = `
